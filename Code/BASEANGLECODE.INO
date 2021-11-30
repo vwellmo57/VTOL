@@ -34,14 +34,14 @@ x= RAD_TO_DEG * (atan2(-yAng, -zAng)+PI);
 y= RAD_TO_DEG * (atan2(-xAng, -zAng)+PI);
 z= RAD_TO_DEG * (atan2(-yAng, -xAng)+PI);
  
-//Serial.print("AngleX= ");
-Serial.println(x-180);
+Serial.print("AngleX= ");
+Serial.println(x);
  
-//Serial.print("AngleY= ");
-//Serial.println(y);
+Serial.print("AngleY= ");
+Serial.println(y);
  
-//Serial.print("AngleZ= ");
-//Serial.println(z);
-//Serial.println("-----------------------------------------");
+Serial.print("AngleZ= ");
+Serial.println(z);
+Serial.println("-----------------------------------------");
 delay(40);
 }
