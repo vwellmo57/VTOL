@@ -127,8 +127,10 @@ void loop(void) {
   if (millis() > (oldMillis + dt)) //checks once per second
   {
     getAngles();
-
-    Actual = x;
+ if(z>180){
+  z=z-360;
+ }
+    Actual = z;
   Setpoint =0;
     oldMillis = millis();  //reset milliseconds
   }
@@ -166,9 +168,7 @@ if(Drive>0){
   //if(z>=90&&z<270){
    // z=z+90;
   //}
- if(z>180){
-  z=z-360;
- }
+
     Serial.println(z);
   
   /* Delay before the next sample */
