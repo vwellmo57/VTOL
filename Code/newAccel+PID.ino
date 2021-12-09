@@ -3,9 +3,9 @@
 #include <Wire.h>
 #include "math.h"
 #include <Servo.h>
-#include "PWM.hpp"
+//#include "PWM.hpp"
 Servo lefty;     // create servo object to control the ESC
-PWM ch1(2);
+//PWM ch1(2);
 Servo righty;
 int check = 1;
 int motorPin = 5;
@@ -29,18 +29,18 @@ int Setpoint;
 int Actual;
 float Derivative;
 float Drive;
-float Integral;
+float Integral = 0;
 
 //Variables(Use a graph)
 float kP = 5;//Start increasing this until it starts to oscillate(go up and down)
-double kI = 0;//Finally use this to center your lines
-float kD = 0;//Second Increase this until it stops oscillating
-float dt =  10;
+double kI = 1;//Finally use this to center your lines
+float kD = 1;//Second Increase this until it stops oscillating
+float dt =  100;
 
 int outputDrive;
 int outputLeft;
 int outputRight;
-PWM ch2(3);
+//PWM ch2(3);
 int left = 1500;
 int right = 1500;
 int potValue;  // value from the analog pin
@@ -85,7 +85,8 @@ Serial.begin(9600);
 }
 
 void loop(void) {
-  getAngles();
+  
+ //getAngles();
   /* Get a new sensor event */
 
   /* Display the results (acceleration is measured in m/s^2) */
