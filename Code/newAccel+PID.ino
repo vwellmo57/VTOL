@@ -29,11 +29,11 @@ int Setpoint;
 int Actual;
 float Derivative;
 float Drive;
-float Integral;
+float Integral=0;
 
 //Variables(Use a graph)
 float kP = 1;//Start increasing this until it starts to oscillate(go up and down)
-double kI = 1;//Finally use this to center your lines
+double kI = .1;//Finally use this to center your lines
 float kD = 1;//Second Increase this until it stops oscillating
 float dt =  100;
 
@@ -126,7 +126,8 @@ void loop(void) {
     //right motor no change
     //left motor + abs(Drive)
   }
-
+  Serial.print("\t Left: ");
+  Serial.print(outputDriveL);
   if (Drive < 0) {
     Drive2 = abs(Drive);
     outputDriveL = 0;
@@ -136,8 +137,7 @@ void loop(void) {
     //right motor no change
     //left motor + abs(Drive)
   }
-  Serial.print("\t Left: ");
-  Serial.print(outputDriveL);
+
   Serial.print("\t Right: ");
   Serial.println(outputDriveR);
 
