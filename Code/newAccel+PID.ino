@@ -33,7 +33,7 @@ float Integral=0;
 
 //Variables(Use a graph)
 float kP = 1;//Start increasing this until it starts to oscillate(go up and down)
-double kI = .1;//Finally use this to center your lines
+double kI = .09;//Finally use this to center your lines
 float kD = 1;//Second Increase this until it stops oscillating
 float dt =  100;
 
@@ -83,7 +83,8 @@ void setup(void) {
   Wire.write(0);
   Wire.endTransmission(true);
   Serial.begin(9600);
-
+righty.write(0);
+lefty.write(0);
 }
 
 void loop(void) {
@@ -121,7 +122,7 @@ void loop(void) {
     Drive2 = abs(Drive);
     outputDriveR = 0;
     outputDriveL = constrain(map(Drive2, 0, 2000, 0, 180), 0, 180);
-    lefty.write(outputDriveL);
+    lefty.write(30+outputDriveL);
 
 
     //right motor no change
@@ -133,7 +134,7 @@ void loop(void) {
     Drive2 = abs(Drive);
     outputDriveL = 0;
     outputDriveR = constrain(map(Drive2, 0, 2000, 0, 180), 0, 180);
-    righty.write(outputDriveR);
+    righty.write(30+outputDriveR);
 
     //right motor no change
     //left motor + abs(Drive)
