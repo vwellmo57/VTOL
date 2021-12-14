@@ -111,8 +111,11 @@ void loop(void) {
   Integral = Integral + (Error * dt) / 10;
   Derivative = (Error - Previous_error) / dt;
   Drive = (Error * kP) + (Integral * kI) + (Derivative * kD);
-  //Serial.println((Error * kP) + (Integral * kI) + (Derivative * kD));
-  Drive = constrain (Drive, -2000, 2000);
+//    Serial.print("\t");
+//  Serial.println((Error * kP) + (Integral * kI) + (Derivative * kD));
+if(Drive>2000){Drive=2000;}
+if(Drive<-2000){Drive=-2000;}
+  //Drive = constrain (Drive, -2000, 2000);
   Serial.print("\t");
   Serial.print(Drive);
   Previous_error = Error;
