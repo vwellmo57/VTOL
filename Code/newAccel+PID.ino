@@ -32,9 +32,9 @@ float Drive;
 float Integral=0;
 
 //Variables(Use a graph)
-float kP = 1;//Start increasing this until it starts to oscillate(go up and down)
-double kI = .09;//Finally use this to center your lines
-float kD = 1;//Second Increase this until it stops oscillating
+float kP = .6;//Start increasing this until it starts to oscillate(go up and down)
+double kI = .01;//Finally use this to center your lines
+float kD = 10;//Second Increase this until it stops oscillating
 float dt =  100;
 
 int outputDriveL;
