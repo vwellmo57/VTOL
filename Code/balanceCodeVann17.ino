@@ -34,7 +34,7 @@ float Integral=0;
 //Variables(Use a graph)
 float kP = .75;//Start increasing this until it starts to oscillate(go up and down)
 double kI = .005;//Finally use this to center your lines
-float kD = 10;//Second Increase this until it stops oscillating
+float kD = 13;//Second Increase this until it stops oscillating increased 10-13
 float dt =  100;
 
 int outputDriveL;
