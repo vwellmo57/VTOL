@@ -5,19 +5,20 @@
 #define MAX_PULSE_LENGTH 2000
 PWM eCH(2);
 PWM tCH(3);
-PWM dCH(4);
+PWM dCH(13);
+PWM aCH(0);
 int LMotorPin = 6;
 int RMotorPin = 7;
 int elevatorPin = 8;
+int aileronPin=9;
 int throttleVal;
 int LMotorVal;
 int RMotorVal;
 int elevatorVal;
 int directionVal;
+int aileronVal;
 int multiplier = 1;
-int val2;
-int val;
-int ogval;
+Servo aileron;
 Servo elevator;
 Servo LMotor;
 Servo RMotor;
@@ -28,19 +29,24 @@ void setup() {
   Serial.begin(9600);
   eCH.begin(true);
   tCH.begin(true);
+  dCH.begin(true);
+  aCH.begin(true);
   LMotor.attach(LMotorPin);
   RMotor.attach(RMotorPin);
   elevator.attach(elevatorPin);
+  aileron.attach(aileronPin);
 
   LMotor.write(0); // send "stop" signal to ESC. Also necessary to arm the ESC.
   RMotor.write(0);
   elevator.write(90);
+  aileron.write(90);
 
 
 
 }
 
 void loop() {
+  Serial.println(aCH.getValue());
   LMotor.writeMicroseconds(MAX_PULSE_LENGTH);
   LMotor.writeMicroseconds(MIN_PULSE_LENGTH);
   RMotor.writeMicroseconds(MAX_PULSE_LENGTH);
@@ -80,9 +86,18 @@ RMotor.write(RMotorVal);
   if (elevatorVal > 175) {
     elevatorVal = 180;
   }
+  aileronVal = map(aCH.getValue(), 1192, 1700, 0, 180);
+  if (aileronVal < 5) {
+    aileronVal = 0;
+  }
+  if (aileronVal > 175) {
+    aileronVal = 180;
+  }
 
-  //Serial.println(elevatorVal);
+  
+  //Serial.println(aileronVal);
   elevator.write(elevatorVal);
+  aileron.write(aileronVal);
 
 
 
