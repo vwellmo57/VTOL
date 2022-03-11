@@ -31,7 +31,7 @@ int RMotorVal;
 int elevatorVal;
 int directionVal;
 int aileronVal;
-int multiplier = 1;
+int multiplier = .3;
 Servo aileron;
 Servo elevator;
 Servo LMotor;
@@ -93,10 +93,12 @@ void loop() {
   RMotor.writeMicroseconds(MIN_PULSE_LENGTH);
 
   throttleVal = rc_values[RC_CH1];
-  throttleVal = throttleVal - 1000;
+  //throttleVal = throttleVal - 1000;
   throttleVal = map(throttleVal, 1000, 2000, 0, 180);
 
-  directionVal = map(rc_values[RC_CH4], 1192, 1700, 0, 180);
+  directionVal = map(rc_values[RC_CH4], 1000, 2000, 0, 180);
+  //directionVal=direction
+  directionVal=directionVal+6;
   if (directionVal < 5) {
     directionVal = 0;
   }
@@ -139,11 +141,12 @@ RMotor.write(RMotorVal);
   elevator.write(elevatorVal);
   aileron.write(aileronVal);
 
-  Serial.print("Throttle:"); Serial.print(rc_values[RC_CH1]); Serial.print("\t");
-  Serial.print("Aileron:"); Serial.print(rc_values[RC_CH2]); Serial.print("\t");
-  Serial.print("Elevator:"); Serial.print(rc_values[RC_CH3]); Serial.print("\t");
-  Serial.print("Diff:"); Serial.println(rc_values[RC_CH4]);
-
+//  Serial.print("Throttle:"); Serial.print(rc_values[RC_CH1]); Serial.print("/"); Serial.print(throttleVal);  Serial.print("\t");
+//  Serial.print("Aileron:"); Serial.print(rc_values[RC_CH2]); Serial.print("/"); Serial.print(aileronVal); Serial.print("\t");
+ // Serial.print("Elevator:"); Serial.print(rc_values[RC_CH3]); Serial.print("/"); Serial.print(elevatorVal); Serial.print("\t");
+  Serial.print("Diff:"); Serial.println(directionVal); Serial.print("\t");
+  Serial.print("LMotor: "); Serial.println(LMotorVal); Serial.print("\t");
+Serial.print("RMotor: "); Serial.println(RMotorVal); 
 //delay(20);
   // Serial.print(",");
   //Serial.println(ch2.getValue());
