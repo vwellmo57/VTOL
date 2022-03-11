@@ -31,7 +31,7 @@ int RMotorVal;
 int elevatorVal;
 int directionVal;
 int aileronVal;
-int multiplier = .3;
+float multiplier = .3;
 Servo aileron;
 Servo elevator;
 Servo LMotor;
@@ -94,8 +94,10 @@ void loop() {
 
   throttleVal = rc_values[RC_CH1];
   //throttleVal = throttleVal - 1000;
-  throttleVal = map(throttleVal, 1000, 2000, 0, 180);
-
+  throttleVal = map(throttleVal, 1000, 2000, 0, 190);
+//throttleVal = map(throttleVal, 30, 164, 0, 180);
+//Serial.println(throttleVal);
+throttleVal=throttleVal+8;
   directionVal = map(rc_values[RC_CH4], 1000, 2000, 0, 180);
   //directionVal=direction
   directionVal=directionVal+6;
