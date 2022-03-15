@@ -31,7 +31,7 @@ int RMotorVal;
 int elevatorVal;
 int directionVal;
 int aileronVal;
-float multiplier = .3;
+float multiplier = .2;
 Servo aileron;
 Servo elevator;
 Servo LMotor;
