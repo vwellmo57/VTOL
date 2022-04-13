@@ -20,7 +20,12 @@
 uint16_t rc_values[RC_NUM_CHANNELS];
 uint32_t rc_start[RC_NUM_CHANNELS];
 volatile uint16_t rc_shared[RC_NUM_CHANNELS];
-
+int aileronDiff=0;
+int aileronDiffSum=0;
+int aileronPrev =185;
+int counter=0;
+int elevatorSum=0;
+int aileronSum=0;
 int LMotorPin = 6;
 int RMotorPin = 7;
 int elevatorPin = 8;
@@ -137,18 +142,42 @@ RMotor.write(RMotorVal);
   if (aileronVal > 175) {
     aileronVal = 180;
   }
-
-  
-  //Serial.println(aileronVal);
-  elevator.write(elevatorVal);
+  if(aileronVal>100&&aileronVal<110){
+    aileronVal=107;
+  }
+    if(elevatorVal>90&&elevatorVal<95){
+    elevatorVal=92;
+  }
+  /*
+  aileronDiff=abs(aileronVal-aileronPrev);
+  if(aileronDiff>5){
   aileron.write(aileronVal);
+
+}
+counter++;
+aileronDiffSum= aileronDiffSum+aileronDiff;
+if(counter>6){
+  
+  if(aileronDiffSum/6>5){
+   aileron.write(aileronVal);
+   
+  }
+}
+
+aileronPrev=aileronVal;
+  */
+    Serial.println(aileronVal);
+
+//Serial.println(elevatorVal);
+   aileron.write(aileronVal);
+   elevator.write(elevatorVal);
 
 //  Serial.print("Throttle:"); Serial.print(rc_values[RC_CH1]); Serial.print("/"); Serial.print(throttleVal);  Serial.print("\t");
 //  Serial.print("Aileron:"); Serial.print(rc_values[RC_CH2]); Serial.print("/"); Serial.print(aileronVal); Serial.print("\t");
  // Serial.print("Elevator:"); Serial.print(rc_values[RC_CH3]); Serial.print("/"); Serial.print(elevatorVal); Serial.print("\t");
-  Serial.print("Diff:"); Serial.println(directionVal); Serial.print("\t");
-  Serial.print("LMotor: "); Serial.println(LMotorVal); Serial.print("\t");
-Serial.print("RMotor: "); Serial.println(RMotorVal); 
+  //Serial.print("Diff:"); Serial.println(directionVal); Serial.print("\t");
+  //Serial.print("LMotor: "); Serial.println(LMotorVal); Serial.print("\t");
+//Serial.print("RMotor: "); Serial.println(RMotorVal); 
 //delay(20);
   // Serial.print(",");
   //Serial.println(ch2.getValue());
