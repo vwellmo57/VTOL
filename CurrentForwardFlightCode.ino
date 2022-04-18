@@ -1,17 +1,18 @@
 #include <Servo.h>
-#define MIN_PULSE_LENGTH 1000
-#define MAX_PULSE_LENGTH 2000
+#define MIN_PULSE_LENGTH 1000 //Defining ranges 
+#define MAX_PULSE_LENGTH 2000 //Defining ranges
 #include <EnableInterrupt.h>
 #define EI_NOTINT0
 #define EI_NOTINT1
 #define SERIAL_PORT_SPEED 9600
 #define RC_NUM_CHANNELS  4
+//Setting up reciever channel vals
 
 #define RC_CH1  0
 #define RC_CH2  1
 #define RC_CH3  2
 #define RC_CH4  3
-
+//Setting up reciever ports
 #define RC_CH1_INPUT  A0
 #define RC_CH2_INPUT  A1
 #define RC_CH3_INPUT  A2
@@ -58,7 +59,7 @@ void calc_input(uint8_t channel, uint8_t input_pin) {
   }
 }
 
-
+//Calculating the RC values 
 void calc_ch1() { calc_input(RC_CH1, RC_CH1_INPUT); }
 void calc_ch2() { calc_input(RC_CH2, RC_CH2_INPUT); }
 void calc_ch3() { calc_input(RC_CH3, RC_CH3_INPUT); }
@@ -75,14 +76,14 @@ void setup() {
 
   LMotor.write(0); // send "stop" signal to ESC. Also necessary to arm the ESC.
   RMotor.write(0);
-  elevator.write(90);
+  elevator.write(90); //Centering the elevator and aileron servos
   aileron.write(90);
-
+//Defining modes
   pinMode(RC_CH1_INPUT, INPUT);
   pinMode(RC_CH2_INPUT, INPUT);
   pinMode(RC_CH3_INPUT, INPUT);
   pinMode(RC_CH4_INPUT, INPUT);
-
+//Defining the inputs to read changes
   enableInterrupt(RC_CH1_INPUT, calc_ch1, CHANGE);
   enableInterrupt(RC_CH2_INPUT, calc_ch2, CHANGE);
   enableInterrupt(RC_CH3_INPUT, calc_ch3, CHANGE);
@@ -92,6 +93,7 @@ void setup() {
 
 void loop() {
   rc_read_values();
+  //Spinning the motors
   LMotor.writeMicroseconds(MAX_PULSE_LENGTH);
   LMotor.writeMicroseconds(MIN_PULSE_LENGTH);
   RMotor.writeMicroseconds(MAX_PULSE_LENGTH);
