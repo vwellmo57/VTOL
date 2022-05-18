@@ -45,7 +45,7 @@ Servo elevator;
 Servo LMotor;
 Servo RMotor;
 
-void rc_read_values() {
+void rc_read_values() {//Function to read the values
   noInterrupts();
   memcpy(rc_values, (const void *)rc_shared, sizeof(rc_shared));
   interrupts();
@@ -102,8 +102,8 @@ void setup() {
 }
 
 void loop() {
-  rc_read_values();
-  //Spinning the motors
+  rc_read_values();//Reading values from the radio
+  //Calibrating the motors
   LMotor.writeMicroseconds(MAX_PULSE_LENGTH);
   LMotor.writeMicroseconds(MIN_PULSE_LENGTH);
   RMotor.writeMicroseconds(MAX_PULSE_LENGTH);
@@ -139,26 +139,26 @@ void loop() {
     RMotorVal = throttleVal;
   }
 
-  LMotor.write(LMotorVal);
-  RMotor.write(RMotorVal);
-  elevatorVal = map(rc_values[RC_CH3], 1192, 1700, 0, 180);
-  if (elevatorVal < 5) {
+  LMotor.write(LMotorVal);//Sending power to left motor
+  RMotor.write(RMotorVal);//Sending power to right motor
+  elevatorVal = map(rc_values[RC_CH3], 1192, 1700, 0, 180);//Mapping elevator values
+  if (elevatorVal < 5) {//Deadzone to remove noise
     elevatorVal = 0;
   }
-  if (elevatorVal > 175) {
+  if (elevatorVal > 175) {//Deadzone to remove noise
     elevatorVal = 180;
   }
-  aileronVal = map(rc_values[RC_CH2], 1192, 1700, 0, 180);
-  if (aileronVal < 5) {
+  aileronVal = map(rc_values[RC_CH2], 1192, 1700, 0, 180);//Mapping aileron values
+  if (aileronVal < 5) {//Deadzone to remove noise
     aileronVal = 0;
   }
-  if (aileronVal > 175) {
+  if (aileronVal > 175) {//Deadzone to remove noise
     aileronVal = 180;
   }
-  if (aileronVal > 100 && aileronVal < 110) {
+  if (aileronVal > 100 && aileronVal < 110) {//Deadzone to remove noise
     aileronVal = 107;
   }
-  if (elevatorVal > 90 && elevatorVal < 95) {
+  if (elevatorVal > 90 && elevatorVal < 95) {//Deadzone to remove noise
     elevatorVal = 92;
   }
   /*
